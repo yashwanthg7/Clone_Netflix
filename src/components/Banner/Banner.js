@@ -5,17 +5,23 @@ import requests from "../../request";
 
 const Banner = () => {
   const [movie, setMovie] = useState([]);
-  async function fetchData() {
-    let response = await axios.get(requests.fetchNetflixOriginals);
-    let movies = response.data.results;
+  async function fetchDataFromURL() {
+    let output = await axios.get(requests.fetchNetflixOriginals);
+    let movies = output.data.results;
     let randomNumber = Math.floor(Math.random() * movies.length);
     setMovie(movies[randomNumber]);
   }
+
+
   useEffect(() => {
-    fetchData();
+    fetchDataFromURL();
   }, []);
+
+  
   const backgroundStyle = {
     backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
+    backgroundPosition: 'center center',
+    backgroundSize: 'cover',
   };
 
   return (

@@ -9,9 +9,14 @@ const baseUrl = "https://image.tmdb.org/t/p/original";
 const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
+  async function fetchDataFromURL() {
+    const request = await axios.get(fetchUrl);
+    setMovies(request.data.results);
+    return request;
+  }
 
   useEffect(() => {
-
+   fetchDataFromURL()
   }, [fetchUrl]);
   const opts = {
     height: "390",
@@ -35,8 +40,22 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     }
   };
 
+  
+
   return (
     <div className="row">
+      <h2>{title}</h2>
+      <div className="row__posters">
+        {movies.map((movie) => (
+          <img
+            key={movie.id}
+            onClick={() => handleClick(movie)}
+            className={`row__poster ${isLargeRow && "row__posterLarge"} `}
+            src={`${baseUrl}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+            alt={movie.name}
+          />
+        ))}
+      </div>
       {trailerUrl && (
         <YouTube
           videoId={trailerUrl}
@@ -45,6 +64,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
         />
       )}{" "}
     </div>
+
   );
 };
 

@@ -4,25 +4,20 @@ import logo from "../../public/netflix-logo.png";
 import avatar from "../../public/Netflix-avatar.png";
 
 const Navbar = () => {
-  const [show, setShow] = useState('transperent');
+  const [show, setShow] = useState(false);
   useEffect(() => {
     function handleScroll() {
-      if (window.scrollY > 100) {
-        setShow('#111');
+      if (window.scrollY > 0) {
+        setShow(true);
       } else {
-        setShow('transparent');
+        setShow(false);
       }
     }
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    handleScroll();
   }, []);
 
   return (
-    <div className="nav" id="navbar" style={{ show }}>
+    <div className="nav" id="navbar" >
       <img src={logo} alt="Netflix Logo" className="nav__logo" />
       <img src={avatar} alt="Netflix Avatar" className="nav__avatar" />
     </div>
