@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Navbar.css";
-import logo from "../../images/netflix-logo.png";
-import avatar from "../../images/Netflix-avatar.png";
+import logo from "../../public/netflix-logo.png";
+import avatar from "../../public/Netflix-avatar.png";
 
 const Navbar = () => {
   const [show, setShow] = useState('transperent');
